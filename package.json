@@ -10,9 +10,7 @@
 	"author": "Lucas Spitzer",
 	"license": "ISC",
 	"dependencies": {
-		"aos": "^2.3.4",
 		"bootstrap": "^5.3.2",
-		"sass": "^1.69.5",
-		"typed.js": "^2.1.0"
+		"sass": "^1.69.5"
 	}
 }

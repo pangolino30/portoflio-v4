@@ -11855,5 +11855,9 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+header {
+  min-height: 100vh;
+  background-color: black;
+}
 
 /*# sourceMappingURL=style.css.map */
