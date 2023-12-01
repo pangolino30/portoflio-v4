@@ -1,6 +1,75 @@
+$gris: #3b3b3b;
+
+@import "../node_modules/bootstrap/scss/_functions.scss";
+@import "../node_modules/bootstrap/scss/_variables.scss";
+
+// Ajout nouvelle couleur à bootstrap
+$custom-theme-colors: (
+	"gris": $gris,
+);
+
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-header {
+html,
+body {
+	width: 100%;
+	overflow-x: hidden;
+	// overflow-y: hidden;
+	cursor: grab;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+	display: none;
+}
+
+.profil {
+	/* Ajout d'un filtre noir et blanc initial */
+	filter: grayscale(0%);
+	transition: filter 0.5s ease; /* Transition sur le filtre pour un effet progressif */
+}
+
+.profil:not(:hover) {
+	/* Au survol, appliquer le noir et blanc complet */
+	filter: grayscale(100%);
+}
+
+.active {
+	font-weight: bolder;
+	text-decoration: underline;
+}
+
+.nav-link:hover {
+	font-weight: bolder;
+	text-decoration: underline dotted;
+	cursor: grabbing;
+}
+
+.btssio {
+	text-decoration: underline wavy;
+	// text-decoration-thickness: 1px;
+}
+
+// .mon-nom:hover {
+// 	text-decoration: underline dotted;
+// 	text-shadow: 1px 1px 2px goldenrod, 0 0 0.5em gold, 0 0 0.1em yellow;
+// 	// text-decoration-thickness: 1px;
+// }
+
+// SECTIONS
+
+section {
 	min-height: 100vh;
-	background-color: black;
+}
+
+#apropos {
+	min-height: 100vh;
+	background-color: $black;
+}
+
+.placeholder {
+	background-color: $white;
 }
