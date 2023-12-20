@@ -9,6 +9,19 @@
 	<link href="/assets/style.css" rel="stylesheet" />
 	<!-- BOOTSTRAP ICON-->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
+
+	<!-- Configuration to construct the captcha widget.
+	  Sitekey is a Mandatory Parameter-->
+	<script>
+		var mtcaptchaConfig = {
+			"sitekey": "MTPublic-bD0cp4TC1",
+			"lang": "fr"
+		};
+		(function () {
+			var mt_service = document.createElement('script'); mt_service.async = true; mt_service.src = 'https://service.mtcaptcha.com/mtcv1/client/mtcaptcha.min.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mt_service);
+			var mt_service2 = document.createElement('script'); mt_service2.async = true; mt_service2.src = 'https://service2.mtcaptcha.com/mtcv1/client/mtcaptcha2.min.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mt_service2);
+		})();
+	</script>
 </head>
 
 <body class="bg-black">
@@ -212,7 +225,7 @@
 
 				<div class="row justify-content-center">
 					<div class="col-md-8">
-						<form class="form-container" action="assets/script/traitement.php" id="form-contact" method="POST">
+						<form class="form-container" action="/assets/script/traitement.php" id="form-contact" method="POST">
 							<div class="form-group">
 								<label for="nom" class="text-white fw-bold">Nom :</label>
 								<input type="text" class="form-control bg-black border-white border-2 text-white" id="nom" name="nom" required>
@@ -225,6 +238,8 @@
 								<label for="message" class="text-white fw-bold">Message :</label>
 								<textarea class="form-control bg-black border-white border-2 text-white" id="message" name="message" rows="4" required></textarea>
 							</div>
+							<!-- MTCap library by default looks for a DIV of class='mtcaptcha' to place the captcha widget -->
+							<div class='mtcaptcha'></div>
 							<button class="btn btn-outline-white border-2 mt-2">Envoyer</button>
 						</form>
 					</div>
