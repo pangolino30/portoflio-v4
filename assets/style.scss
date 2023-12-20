@@ -82,3 +82,28 @@ a:hover {
 	color: $white;
 	text-decoration: none;
 }
+
+.btn-outline-white {
+	color: $white;
+	border-color: $white;
+}
+
+.btn-outline-white:hover {
+	color: $white;
+	border-color: $white;
+}
+
+.btn-outline-white:focus {
+	color: $white;
+	border-color: $white;
+}
+
+.btn-outline-white:active {
+	color: $white;
+	border-color: $white;
+}
+
+.btn-outline-white:not(:disabled):not(.disabled).active, .btn-outline-white:not(:disabled):not(.disabled):active, .show > .btn-outline-white.dropdown-toggle {
+	color: $white;
+	border-color: $white;
+}
