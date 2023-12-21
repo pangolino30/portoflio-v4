@@ -1,40 +1,37 @@
 <?php
+session_start();
 
-// Checking valid form is submitted or not 
-if (isset($_POST['submit_btn'])) {
-
-    $nom = $_POST['nom'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
-
-    // Storing google recaptcha response 
-    // in $recaptcha variable 
-    $recaptcha = $_POST['g-recaptcha-response'];
-
-    // Put secret key here, which we get 
-    // from google console 
-    $secret_key = '6LfeQzcpAAAAAAJuxiZNjYUl0NUSzzNZmvqxclTJ';
-
-    // Hitting request to the URL, Google will 
-    // respond with success or error scenario 
-    $url = 'https://www.google.com/recaptcha/api/siteverify?secret='
-        . $secret_key . '&response=' . $recaptcha;
-
-    // Making request to verify captcha 
-    $response = file_get_contents($url);
-
-    // Response return by google is in 
-    // JSON format, so we have to parse 
-    // that json 
-    $response = json_decode($response);
-
-    // Checking, if response is true or not 
-    if ($response->success == true) {
-        echo '<script>alert("Google reCAPTACHA verified")</script>';
-        mail("contact@lucasspitzer.fr", "Message de $nom", $message);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérification des champs vides
+    if (empty($_POST['nom']) || empty($_POST['email']) || empty($_POST['message'])) {
+        $_SESSION['alert'] = "Tous les champs sont obligatoires.";
     } else {
-        echo '<script>alert("Error in Google reCAPTACHA")</script>';
-    }
-}
+        $nom = $_POST['nom'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
 
+        // Vérification de la syntaxe de l'email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['alert'] = "L'adresse e-mail n'est pas valide.";
+        } else if (strlen($nom) > 30) {
+            $_SESSION['alert'] = "Votre nom est trop long.";
+        } else if (strlen($message) < 50) {
+            $_SESSION['alert'] = "Le message doit faire au moins 50 caractères.";
+        } else {
+            $to = "contact@lucasspitzer.fr";
+            $subject = "Nouveau message de $nom";
+            $body = "Nom: $nom\nEmail: $email\nMessage: $message";
+
+            if (mail($to, $subject, $body)) {
+                $_SESSION['alert_class'] = "alert-success"; // Classe pour l'alerte verte
+                $_SESSION['alert'] = "Votre message a été envoyé avec succès.";
+            } else {
+                $_SESSION['alert_class'] = "alert-danger"; // Classe pour l'alerte rouge
+                $_SESSION['alert'] = "Une erreur s'est produite lors de l'envoi du message.";
+            }
+        }
+    }
+    header("Location: /index.php#contact"); // Redirection vers la page index
+    exit();
+}
 ?>

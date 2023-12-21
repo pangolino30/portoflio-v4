@@ -5,23 +5,11 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Lucas Spitzer - Portfolio</title>
+	<meta name="description" content="Portfolio de Lucas Spitzer, étudiant en BTS SIO." />
 	<!-- BOOTSTRAP + CUSTOM CSS -->
 	<link href="/assets/style.css" rel="stylesheet" />
 	<!-- BOOTSTRAP ICON-->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
-
-	<!-- Configuration to construct the captcha widget.
-	  Sitekey is a Mandatory Parameter-->
-	<script>
-		var mtcaptchaConfig = {
-			"sitekey": "MTPublic-bD0cp4TC1",
-			"lang": "fr"
-		};
-		(function () {
-			var mt_service = document.createElement('script'); mt_service.async = true; mt_service.src = 'https://service.mtcaptcha.com/mtcv1/client/mtcaptcha.min.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mt_service);
-			var mt_service2 = document.createElement('script'); mt_service2.async = true; mt_service2.src = 'https://service2.mtcaptcha.com/mtcv1/client/mtcaptcha2.min.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mt_service2);
-		})();
-	</script>
 </head>
 
 <body class="bg-black">
@@ -225,6 +213,18 @@
 
 				<div class="row justify-content-center">
 					<div class="col-md-8">
+						<?php
+						session_start();
+						if (isset($_SESSION['alert']) && isset($_SESSION['alert_class'])) {
+							echo '
+							<div class="alert ' . $_SESSION['alert_class'] . ' alert-dismissible fade show" role="alert">
+								<strong>Holy guacamole!</strong> ' . $_SESSION['alert'] . '
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>';
+							unset($_SESSION['alert']); // Supprime le message d'alerte de la variable de session
+							unset($_SESSION['alert_class']); // Supprime la classe de l'alerte de la variable de session
+						}
+						?>
 						<form class="form-container" action="/assets/script/traitement.php" id="form-contact" method="POST">
 							<div class="form-group">
 								<label for="nom" class="text-white fw-bold">Nom :</label>
@@ -238,8 +238,6 @@
 								<label for="message" class="text-white fw-bold">Message :</label>
 								<textarea class="form-control bg-black border-white border-2 text-white" id="message" name="message" rows="4" required></textarea>
 							</div>
-							<!-- MTCap library by default looks for a DIV of class='mtcaptcha' to place the captcha widget -->
-							<div class='mtcaptcha'></div>
 							<button class="btn btn-outline-white border-2 mt-2">Envoyer</button>
 						</form>
 					</div>
