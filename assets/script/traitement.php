@@ -13,8 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Vérification de la syntaxe de l'email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $_SESSION['alert'] = "L'adresse e-mail n'est pas valide.";
-        } else if (strlen($nom) > 30) {
-            $_SESSION['alert'] = "Votre nom est trop long.";
         } else if (strlen($message) < 50) {
             $_SESSION['alert'] = "Le message doit faire au moins 50 caractères.";
         } else {
